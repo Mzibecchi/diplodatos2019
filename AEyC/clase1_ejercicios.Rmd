@@ -1,0 +1,93 @@
+---
+title: "R Notebook - Clase 1 - Ejercicios"
+output: html_notebook
+---
+
+#### Cohorte Omega - Grupo 6:
+- Santiago Alcaide	santiago.asa@gmail.com
+- Kevin Santos	kevjn.cba@gmail.com
+- Mariano Zibecchi	mzibecchi@gmail.com
+
+
+Exploraremos ahora la manipulacion basica utilizando un conjunto de datos sobre los vuelos en Nueva York en 2013.  
+
+La definicion del dataset se puede encontrar en:
+https://cran.r-project.org/web/packages/nycflights13/nycflights13.pdf  
+
+
+```{r echo=TRUE}
+library(nycflights13)
+fligths<-nycflights13::flights
+fligths
+```
+
+
+### 1. Que arribaron con un retraso de mas de dos horas.
+
+```{r echo=TRUE}
+
+delayed = (flights$arr_delay > 120)
+flights[delayed,c("arr_delay","carrier","flight", "dep_delay")]
+
+```
+
+### 2. Volaron hacia Houston (IAH o HOU)
+
+```{r echo=TRUE}
+destination = (flights$dest == "IAH" | flights$dest == "HOU")
+flights[destination,c("dest","carrier","flight")]
+
+```
+### 3. Fueron operados por United, American o Delta.
+
+```{r echo=TRUE}
+carrier = (flights$carrier == "UA" | flights$carrier == "DL" | flights$carrier == "AA")
+flights[carrier,c("carrier","flight")]
+
+```
+
+### 4. Salieron en Verano (Julio, Agosto y Septiembre)
+
+
+```{r echo=TRUE}
+
+is_summer <- function( month, day) {
+  ( (month == 6 & day>=21) | month == 7 | month == 8 | (month == 9 & day <= 21) )
+}
+
+departure_summer = is_summer(flights$month, flights$day)
+
+flights[ departure_summer, c("carrier","flight")]
+
+```
+
+### 5. Arribaron mas de dos horas tarde, pero salieron bien
+
+```{r echo=TRUE}
+
+delayed_left_on_time = (flights$dep_delay <= 0 & flights$arr_delay >= 120)
+flights[ delayed_left_on_time, ]
+
+```
+
+No hay vuelos que hayan salido a tiempo y hayan llegado dos horas mas tarde?
+porque devuelve 8772 filas, todo con NA?
+
+### 6. Salieron entre medianoche y las 6 am.
+
+de acuerdo a https://cran.r-project.org/web/packages/nycflights13/nycflights13.pdf  
+dep_time,arr_timeActual departure and arrival times (format HHMM or HMM), local tz.
+
+
+```{r echo=TRUE}
+# veamos como esta dep_time
+summary(flights[ , c("dep_time")])
+```
+
+```{r echo=TRUE}
+
+departure = (flights$dep_time <= 600)
+flights[ departure, ]
+
+```
+
