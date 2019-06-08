@@ -11,6 +11,6 @@ This folder contains material related to the intro to ml course
 http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf
   
   
-#### Github del curso  
+#### Course Github  
     
   https://github.com/DiploDatos/IntroduccionAprendizajeAutomatico
