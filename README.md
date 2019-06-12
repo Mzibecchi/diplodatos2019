@@ -8,6 +8,8 @@ El repo contiene una carpeta por cada una de las materias:
   
 ### Algunos links utiles:
   
+  http://diplodatos.famaf.unc.edu.ar/
+  
   https://jakevdp.github.io/PythonDataScienceHandbook/  
     
     
